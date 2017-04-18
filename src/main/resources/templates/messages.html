@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Hello, Spring Boot!</title>
+</head>
+<body>
+<h1>Hello, Spring Boot!</h1>
+
+<form action="#" th:action="@{/messages}" th:object="${messageForm}" method="post">
+    <p>Name (optional): <input type="text" th:field="*{name}" />
+       <em th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</em></p>
+    <p><textarea cols="40" rows="4" placeholder="Type anything" th:field="*{text}"></textarea>
+       <em th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text Error</em></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+
+<h2>Recent messages</h2>
+
+<dl>
+    <th:block th:each="message : ${messages}">
+        <dt>
+            <span class="name" th:text="${message.name}" th:attr="title=${message.remoteAddr}">John Doe</span>
+            <small th:text="${#dates.format(message.createdAt, '(yyyy-MM-dd HH:mm:ss)')}">(1970-01-01 00:00:00)</small>
+        </dt>
+        <dd th:text="${message.text}">Lorem ipsum dolor sit amet</dd>
+    </th:block>
+</dl>
+
+</body>
+</html>
