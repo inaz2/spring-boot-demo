@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Sign up page</title>
+</head>
+<body>
+<h1>Sign up page</h1>
+
+<form action="#" th:action="@{/signup}" th:object="${signupForm}" method="post">
+    <p th:if="${signupError}"><em>Username or mail address is already used.</em></p>
+    
+    <p><label for="username">Username</label>:
+       <input type="text" id="username" name="username" autofocus="autofocus" />
+       <em th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</em></p>
+    <p><label for="password">Password</label>:
+       <input type="password" id="password" name="password" />
+       <em th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</em></p>
+    <p><label for="mailAddress">Mail address</label>:
+       <input type="email" id="mailAddress" name="mailAddress" />
+       <em th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}">Mail Address Error</em></p>
+    <p><input type="submit" value="Sign up" /></p>
+</form>
+
+<p><a th:href="@{/login}">Login</a></p>
+
+<p><a th:href="@{/}">Back to index</a></p>
+</body>
+</html>

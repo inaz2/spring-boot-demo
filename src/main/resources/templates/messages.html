@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
 <title>Hello, Spring Boot!</title>
 </head>
 <body>
 <h1>Hello, Spring Boot!</h1>
+
+<div th:fragment="logout" sec:authorize="isAuthenticated()">
+    <p>Login as: <span sec:authentication="name"></span> <span sec:authentication="principal.authorities"></span></p>
+    <form action="#" th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
 
 <form action="#" th:action="@{/messages}" th:object="${messageForm}" method="post">
     <p>Name (optional): <input type="text" th:field="*{name}" />
